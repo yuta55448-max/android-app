@@ -12,7 +12,7 @@ spec:
       branch: <|NAMESERVICE_REF|>
       timeoutDelta: 2h
       deleteDelta: 4h
-    claim:
+    claim: 
       inherits:
         - backend
         - frontend-vpn
