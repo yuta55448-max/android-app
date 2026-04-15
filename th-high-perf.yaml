@@ -1,0 +1,44 @@
+apiVersion: testing.ephemera.crossplane.io/v1alpha1
+kind: EnvironmentClaim
+metadata:
+  name: <|ephemera.provider.generate-name|>
+  labels:vpn-android-th-high-perf.yaml
+    region: thailand
+    performance-profile: high-speed
+spec:
+  providerConfigRef:
+    name: ephemera-th-region
+  forProvider:
+    nameService:
+      app: vpn-android
+      tag: <|NAMESERVICE_REF|>
+      branch: <|NAMESERVICE_REF|>
+      timeoutDelta: 2h
+      deleteDelta: 4h
+    claim:
+      inherits:
+        - backend
+        - frontend-vpn
+        - frontend-verify
+        - default-patches
+        - high-performance-storage
+      parameters:
+        region: "ap-southeast-1"
+        storageClass: "premium-rwo"
+        databaseTier: "high-speed"
+      charts:
+        docs-rts-api: { enabled: false }
+        docs-rts-scheduler: { enabled: false }
+        docs-rts-worker: { enabled: false }
+        slim-api-admin: { enabled: false }
+        redis:
+          enabled: true
+          architecture: standalone
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "2"
+          memory: "4Gi"
+          
